@@ -1,12 +1,4 @@
-"""
-6.1010 Spring '23 Lab 10: Symbolic Algebra
-"""
-
 import doctest
-
-# NO ADDITIONAL IMPORTS ALLOWED!
-# You are welcome to modify the classes below, as well as to implement new
-# classes and helper functions as necessary.
 
 class Symbol:
     """
@@ -49,8 +41,6 @@ class Symbol:
     def simplify(self):
         # print('HI')
         return self
-
-
 
 class Var(Symbol):
     """
@@ -135,7 +125,7 @@ class BinOp(Symbol):
     """
     Represents a binary expression.
     """
-    operand = "" #delete?
+    operand = "" 
     def __init__(self, left, right):
         """
         Initializer. Stores Symbol instances
@@ -258,7 +248,6 @@ class Sub(BinOp):
             except:
                 return Sub(left_simplified, right_simplified)
     
-
 class Mul(BinOp):
     """
     Represents a binary multiplication expression.
@@ -295,9 +284,7 @@ class Mul(BinOp):
                 total = Mul(left_simplified, right_simplified).eval({})
                 return Num(total)
             except:
-                return Mul(left_simplified, right_simplified)
-        
-        
+                return Mul(left_simplified, right_simplified)        
 
 class Div(BinOp):
     """
@@ -381,7 +368,6 @@ class Pow(BinOp):
 def expression(s):
     """
     Given a string representing an expression, converts it into a BinOp object.
-
     """
     def tokenize(s):
         """
@@ -426,18 +412,13 @@ def expression(s):
                     if open_par == close_par:
                         return i
                     
-            # print('start parse exp', index, tokens)
             if tokens[index] == "(":
-                # print('token')
                 i = get_parens_end(index)
-                # print('last parens index', i)
                 return (parse(tokens[index+1:i]), i+1) #parse(tokens[i+2:])), i+1)
             try:
                 x = float(tokens[index])
-                # print('num')
                 return(Num(float(tokens[index])), index+1)
             except:
-                # print('var')
                 return(Var(tokens[index]), index+1)
            
         next_index = 0
